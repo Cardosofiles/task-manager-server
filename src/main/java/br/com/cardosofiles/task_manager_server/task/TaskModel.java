@@ -1,9 +1,8 @@
-package br.com.cardosofiles.task_manager_server.user;
+package br.com.cardosofiles.task_manager_server.task;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,28 +10,30 @@ import jakarta.persistence.Id;
 import lombok.Data;
 
 /**
- * Model for user in the database
+ * Model for task in the database
  * 
  * @author Cardoso Files
  * @version 1.0.0
  * @since 1.0.0
- * @see UserController
+ * @see TaskController
  */
 
 @Data
-@Entity(name = "tb_users")
-public class UserModel {
+@Entity(name = "tb_tasks")
+public class TaskModel {
 
     @Id
     @GeneratedValue(generator = "UUID")
     private UUID id;
+    private String description;
 
-    @Column(unique = true)
-    private String name;
-    private String username;
-    private String password;
+    @Column(length = 50)
+    private String title;
+    private LocalDateTime startAt;
+    private LocalDateTime endAt;
+    private String priority;
+    private UUID idUser;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @CreationTimestamp
     private LocalDateTime createdAt;
 }
